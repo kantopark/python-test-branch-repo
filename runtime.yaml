@@ -16,9 +16,9 @@ steps:
           exit_code: 1
 
       - name: Step 2 Operation 2
-          cmd: step_1_1.py
-          environment:
-            exit_code: 2
+        cmd: step_1_1.py
+        environment:
+          exit_code: 2
 
     # branch determines the next step based on the exit code. It is OPTIONAL
     # By default, an exit code of 0 will move to the next step and any other
