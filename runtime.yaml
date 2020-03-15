@@ -1,7 +1,7 @@
 setup:
   build: false
   commit:
-  image: danielbok/python-nida:3.7.6
+  image: danielbok/nida-python:3.7.6
 
 
 steps:
