@@ -11,13 +11,13 @@ steps:
       - name: Step 1 Operation 1
         cmd: step_1_1.py
         environment:
-          # Set this variable to be greater than the exit code of Operation 2
-          # so that Operation 1 can determine the branching rule
           exit_code_1_1: 1
 
-      - name: Step 2 Operation 2
-        cmd: step_1_1.py
+      - name: Step 1 Operation 2
+        cmd: step_1_2.py
         environment:
+          # Set this variable to be smaller than the exit code of Operation 1
+          # so that Operation 1 can determine the branching rule
           exit_code_1_2: 2
 
     # branch determines the next step based on the exit code. It is OPTIONAL
