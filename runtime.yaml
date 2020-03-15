@@ -1,0 +1,49 @@
+setup:
+  build: false
+  commit:
+  image: danielbok/python-nida:3.7.6
+
+
+steps:
+  - name: Step 1
+    tasks:
+      # elements in list are executed together
+      - name: Step 1 Operation 1
+        cmd: step_1_1.py
+        environment:
+          # Set this variable to be greater than the exit code of Operation 2
+          # so that Operation 1 can determine the branching rule
+          exit_code: 1
+
+      - name: Step 2 Operation 2
+          cmd: step_1_1.py
+          environment:
+            exit_code: 2
+
+    # branch determines the next step based on the exit code. It is OPTIONAL
+    # By default, an exit code of 0 will move to the next step and any other
+    # undefined exit codes will EXIT the program. When multiple tasks are in
+    # defined in the step, the step which returns the largest exit code will
+    # be the final exit code used to determine the branching rule
+    branch:
+      - code: 1
+        step: Step 3
+
+      # Go to the name specified by "step" if that exit code is met
+      - code: 2
+        step: Step 4
+
+  - name: Step 2
+    tasks:
+      - name: Step 2 Operation 1
+        cmd: step_2_1.py
+
+  - name: Step 3
+    tasks:
+      - name: Step 3 Operation 1
+        cmd: step_3_1.py
+
+  - name: Step 4
+    tasks:
+      - name: Step 4 Operation 1
+        cmd: step_4_1.py
